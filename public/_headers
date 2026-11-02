@@ -1,0 +1,9 @@
+# Netlify / Cloudflare Pages style headers. Mirror these in Nginx/Vercel/etc. if you host elsewhere.
+# Replace https://api.example.com with your API origin.
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' blob: data: https://*.supabase.co; connect-src 'self' https://api.example.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: no-referrer
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Permissions-Policy: camera=(self), microphone=(), geolocation=()
