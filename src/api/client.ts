@@ -1,4 +1,8 @@
-const BASE = (import.meta.env.VITE_API_URL as string | undefined) ?? 'http://localhost:4000';
+const BASE = import.meta.env.VITE_API_URL?.trim() || (import.meta.env.DEV ? 'http://localhost:4000' : '');
+
+if (!BASE) {
+  throw new Error('VITE_API_URL must be set to the deployed API URL in production.');
+}
 
 export class ApiError extends Error {
   constructor(public status: number, message: string, public code?: string) { super(message); }
