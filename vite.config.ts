@@ -22,6 +22,7 @@ function csp(apiUrl: string): Plugin {
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, '.', '');
   return {
+    base: '/vertivo-qc-web/',
     plugins: [react(), csp(env.VITE_API_URL || 'http://localhost:4000')],
     build: { sourcemap: false },
     server: { port: 5173 },
