@@ -17,6 +17,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      VITE_API_URL: https://vertivo-qc-api.onrender.com
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -25,11 +27,9 @@ jobs:
           cache: npm
       - run: npm ci
       - name: Validate API URL
-        env:
-          VITE_API_URL: ${{ vars.VITE_API_URL }}
         run: |
           if [ -z "$VITE_API_URL" ]; then
-            echo "::error::Set the GitHub Actions variable VITE_API_URL to your deployed API URL."
+            echo "::error::VITE_API_URL must be set to the deployed API URL."
             exit 1
           fi
           case "$VITE_API_URL" in
@@ -40,8 +40,6 @@ jobs:
               ;;
           esac
       - run: npm run build
-        env:
-          VITE_API_URL: ${{ vars.VITE_API_URL }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

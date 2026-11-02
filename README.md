@@ -13,10 +13,9 @@ npm run build            # type-check + production build into dist/
 Sign in with a user created in Supabase Auth (see the API README).
 
 ## GitHub Pages deployment
-Set the repository Actions variable `VITE_API_URL` to the deployed API's HTTPS origin
-(**Settings → Secrets and variables → Actions → Variables**). The Pages workflow fails
-with a clear error if this variable is missing or is not HTTPS; the API must also allow
-the Pages site origin in its CORS and cookie configuration.
+The Pages workflow builds against `https://vertivo-qc-api.onrender.com` and fails if the
+API URL is missing or is not HTTPS. The API must also allow the Pages site origin in its
+CORS and cookie configuration.
 
 ## What it does (all features of the original HTML)
 Site details · sign-off · 4 checklist tabs (147 items) · per-item qty / actual size / inspection status / remarks /
