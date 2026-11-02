@@ -21,9 +21,18 @@ function csp(apiUrl: string): Plugin {
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, '.', '');
+  const apiUrl = mode === 'github-pages'
+    ? 'https://vertivo-qc-api.onrender.com'
+    : env.VITE_API_URL?.trim() || '';
+
+  if (!apiUrl) {
+    throw new Error('VITE_API_URL must be set to the deployed API URL for production builds.');
+  }
+
   return {
     base: mode === 'github-pages' ? '/vertivo-qc-web/' : '/',
-    plugins: [react(), csp(env.VITE_API_URL || 'http://localhost:4000')],
+    define: { 'import.meta.env.VITE_API_URL': JSON.stringify(apiUrl) },
+    plugins: [react(), csp(apiUrl)],
     build: { sourcemap: false },
     server: { port: 5173 },
   };

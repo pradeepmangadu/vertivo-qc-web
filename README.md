@@ -13,9 +13,9 @@ npm run build            # type-check + production build into dist/
 Sign in with a user created in Supabase Auth (see the API README).
 
 ## GitHub Pages deployment
-The Pages workflow builds against `https://vertivo-qc-api.onrender.com` and fails if the
-API URL is missing or is not HTTPS. The API must also allow the Pages site origin in its
-CORS and cookie configuration.
+Build with `npm run build -- --mode github-pages`. This mode uses
+`https://vertivo-qc-api.onrender.com` for API requests and CSP, regardless of `VITE_API_URL`.
+The API must also allow the Pages site origin in its CORS and cookie configuration.
 
 ## Render deployment
 `render.yaml` configures this repository as a Render Static Site with root asset paths and
@@ -44,8 +44,8 @@ src/styles/      global.css + print.css (ported from the original HTML)
 - No tokens in JavaScript: sessions are `HttpOnly` cookies set by the API. Nothing sensitive in localStorage.
 - CSRF token held in memory and sent as `X-CSRF-Token`; one silent refresh on expiry, then back to login.
 - React escapes all output; no `dangerouslySetInnerHTML`; no inline scripts or inline styles, so a strict CSP works.
-  Production builds embed a CSP `<meta>`; also set the headers in `public/_headers` (or your host's equivalent),
-  replacing `https://api.example.com` with your API origin. `frame-ancestors` only works as a header.
+  Production builds embed a CSP `<meta>`; also set the headers in `public/_headers` (or your host's equivalent)
+  to allow your API origin. `frame-ancestors` only works as a header.
 - Photos are shrunk to 1200px in the browser, then re-verified and stripped of EXIF/GPS by the API.
 - Deploy on the **same site** as the API (e.g. `app.example.com` + `api.example.com`) over HTTPS — the API's cookies are `SameSite=Strict`.
 - SPA hosting needs a fallback to `index.html` for deep links such as `/deliveries/<id>`.
