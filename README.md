@@ -17,6 +17,13 @@ The Pages workflow builds against `https://vertivo-qc-api.onrender.com` and fail
 API URL is missing or is not HTTPS. The API must also allow the Pages site origin in its
 CORS and cookie configuration.
 
+## Render deployment
+`render.yaml` configures this repository as a Render Static Site with root asset paths and
+the Render API URL. For an existing Render service, set the build command to
+`npm ci && npm run build -- --mode render`, the publish directory to `dist`, and the build
+environment variable `VITE_API_URL` to `https://vertivo-qc-api.onrender.com`, then deploy
+the latest commit.
+
 ## What it does (all features of the original HTML)
 Site details · sign-off · 4 checklist tabs (147 items) · per-item qty / actual size / inspection status / remarks /
 photo · search and filter · live stats and per-section progress · autosave · CSV export · backup download ·

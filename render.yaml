@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: vertivo-qc-web
+    runtime: static
+    buildCommand: npm ci && npm run build -- --mode render
+    staticPublishPath: ./dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://vertivo-qc-api.onrender.com
